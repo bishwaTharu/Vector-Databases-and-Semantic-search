@@ -4,10 +4,8 @@ from langchain_community.document_loaders import TextLoader
 
 def load_db(path: str):
     """
-    load the directory and split the data in chunks
-    path: path of directory
-    chuck_size: int
-    chuck_overlab: int
+    load the documents
+    path: Filepath or directory
     """
     text_loader_kwargs = {"autodetect_encoding": True}
     loader = DirectoryLoader(
