@@ -19,23 +19,21 @@ pinecone.init(
 )
 
 ## Embeddings
-embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-MiniLM-L6-v2"
-)
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 # # document loading
-docs = load_and_split(path="./data",chunk_size=1000,chunk_overlap=150)
+docs = load_and_split(path="./data", chunk_size=1000, chunk_overlap=150)
 
-docsearch = Pinecone.from_documents(docs, embeddings, index_name='llama-2')
+docsearch = Pinecone.from_documents(docs, embeddings, index_name="llama-2")
 
 while True:
     try:
         question = input("Query: ")
         results = docsearch.similarity_search_with_score(question, k=1)
 
-        for doc in  results:
+        for doc in results:
             content, score = doc
-            print(f'===========Content===========: {content}')
-            print(f'===============Score==========: {score}')
+            print(f"===========Content===========: {content}")
+            print(f"===============Score==========: {score}")
     except KeyboardInterrupt:
         break

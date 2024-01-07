@@ -6,3 +6,4 @@ sentencepiece==0.1.99
 tiktoken==0.5.2
 torch==2.1.2
 transformers==4.36.2
+InstructorEmbedding==1.0.1
