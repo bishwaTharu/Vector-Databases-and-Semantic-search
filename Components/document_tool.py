@@ -1,9 +1,8 @@
-from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import DirectoryLoader
 from langchain_community.document_loaders import TextLoader
 
 
-def load_and_split(path: str, chunk_size: int, chunk_overlap: int):
+def load_db(path: str):
     """
     load the directory and split the data in chunks
     path: path of directory
@@ -20,8 +19,4 @@ def load_and_split(path: str, chunk_size: int, chunk_overlap: int):
         show_progress=True,
     )
     documents = loader.load()
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=chunk_size, chunk_overlap=chunk_overlap
-    )
-    docs = text_splitter.split_documents(documents)
-    return docs
+    return documents
