@@ -4,6 +4,7 @@ from dotenv import load_dotenv, find_dotenv
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Pinecone
 from Components.document_tool import load_and_split
+from langchain.embeddings import HuggingFaceInstructEmbeddings
 
 
 load_dotenv(find_dotenv())
@@ -21,10 +22,18 @@ pinecone.init(
 ## Embeddings
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
+
+
+embeddings_1 = HuggingFaceInstructEmbeddings(
+    model_name='hkunlp/instructor-large',
+    encode_kwargs={'normalize_embeddings': True},
+    query_instruction="Represent the query for retrieval: "
+)
+
 # # document loading
 docs = load_and_split(path="./data", chunk_size=1000, chunk_overlap=150)
 
-docsearch = Pinecone.from_documents(docs, embeddings, index_name="llama-2")
+docsearch = Pinecone.from_documents(docs, embeddings_1, index_name="llama-2")
 
 while True:
     try:
