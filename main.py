@@ -3,7 +3,7 @@ import pinecone
 from dotenv import load_dotenv, find_dotenv
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Pinecone
-from Components.document_tool import load_and_split
+from Components.docs_loader import load_db
 from langchain.embeddings import HuggingFaceInstructEmbeddings
 
 
@@ -31,7 +31,10 @@ embeddings_1 = HuggingFaceInstructEmbeddings(
 )
 
 # # document loading
-docs = load_and_split(path="./data", chunk_size=1000, chunk_overlap=150)
+docs = load_db(path="./data")
+
+# data splitting 
+# split here
 
 docsearch = Pinecone.from_documents(docs, embeddings_1, index_name="llama-2")
 
